@@ -1,24 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import BlockGenerator from './components/BlockGenerator';
+import BlockDisplay from './components/BlockDisplay';
+import {v4 as uuid} from 'uuid';
+
 import './App.css';
 
+
 function App() {
+  const [state, setState] = useState([
+    // {
+    //   color: "blue"
+    // },
+    // {
+    //   color: "black"
+    // },
+    // {
+    //   color: "gray"
+    // },
+    // {
+    //   color: "gray"
+    // },
+    // {
+    //   color: "blue"
+    // }
+    ]);
+
+  // Add Block
+  const addBlock = (color) => {
+    console.log("you created a block")
+    const newBlock = {
+      id: uuid(),
+      color: color
+    }
+    setState([...state, newBlock]);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BlockGenerator addBlock={ addBlock }/>
+      <BlockDisplay blocks={ state }/>
     </div>
   );
 }
