@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Header from './components/layout/Header.js';
+import About from './components/pages/About.js';
 import BlockGenerator from './components/BlockGenerator';
 import BlockDisplay from './components/BlockDisplay';
 import {v4 as uuid} from 'uuid';
@@ -36,10 +39,19 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <BlockGenerator addBlock={ addBlock }/>
-      <BlockDisplay blocks={ state }/>
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <Route exact path='/' render={props => (
+          <React.Fragment>
+            <h3>Please enter your favorite color.</h3>
+            <BlockGenerator addBlock={ addBlock }/>
+            <BlockDisplay blocks={ state }/>
+          </React.Fragment>
+        )} />
+        <Route path='/about' component={About} />
+      </div>
+    </Router>
   );
 }
 
